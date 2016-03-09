@@ -1,0 +1,11 @@
+﻿
+<h4>Таблица с содержимым документа</h4>
+
+<table>
+    @for (int i = 0; i < ViewBag.myText.Length; i++)
+    {
+        <tr>
+            <td>@Html.ViewBag.myText[i]</td>
+        </tr>
+    }
+</table>
