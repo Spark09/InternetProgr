@@ -1,0 +1,35 @@
+﻿<html>
+<head>
+    <title>Notepads</title>
+    <meta charset="utf-8">
+    <script src="http://knockoutjs.com/downloads/knockout-3.4.0.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/MyScript.js"></script>
+    <link href="~/Content/Style.css" rel="stylesheet">
+</head>
+<body>
+    <div id="main" >
+        <div id="create">
+            <h4>Создать блокнот</h4>
+            <input data-bind="value: notepadName" />
+            <button data-bind="click: createNotepad">Создать</button>
+        </div>
+        <div id="edit">
+            <h4>Просмотр и редактирование блокнотов</h4>
+            <button data-bind="click: loadNotepads">Загрузить список</button>
+            <button data-bind="click: clearNotepads">Очистить список</button>
+            <button data-bind="click: deleteNotepads">Удалить все</button>
+            <div class="divList"><ul id="list"></ul></div>
+            <img src="" />
+            <textarea id="notepadContent"></textarea>
+            <button id="save">Сохранить</button>
+        </div>
+    </div>
+
+    <script>
+        var name = '@ViewBag.Name';
+        loadNotepad1(name);
+    </script>
+
+</body>
+</html>
