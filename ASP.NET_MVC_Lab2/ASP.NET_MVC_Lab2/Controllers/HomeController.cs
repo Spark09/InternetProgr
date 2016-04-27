@@ -5,7 +5,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.IO;
 using Newtonsoft.Json.Linq;
-using System.Drawing;
 using ASP.NET_MVC_Lab2.Models;
 
 namespace ASP.NET_MVC_Lab2.Controllers
@@ -37,9 +36,9 @@ namespace ASP.NET_MVC_Lab2.Controllers
         
         MyModel model = new MyModel();
 
-        public void CreateNotepad(string notepad)
+        public void CreateNotepad(MyData notepad)
         {
-            model.CreateNotepad(notepad);
+            model.CreateNotepad(notepad.NameNotepad);
         }
         public JsonResult LoadNotepads()
         {
@@ -47,7 +46,11 @@ namespace ASP.NET_MVC_Lab2.Controllers
         }
         public string LoadNotepad(string notepad)
         {
-            return model.LoadNotepad(notepad);
+            if (notepad != "")
+            {
+                return model.LoadNotepad(notepad);
+            }
+            return null;
         }
         public void ChangeContentNotepad(string notepad, string content)
         {
@@ -61,5 +64,28 @@ namespace ASP.NET_MVC_Lab2.Controllers
         {
             model.CreateImage(notepad);
         }
+
+        public class MyData
+        {
+            public string NameNotepad { get; set; }
+            public int Count { get; set; }
+        }
+        public class MyDataBinder : IModelBinder
+        {
+            public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
+            {
+                var request = controllerContext.HttpContext.Request;
+                if (request.Form["notepad"] != null)
+                {
+                    return new MyData
+                    {
+                        NameNotepad = request.Form["notepad"]
+                    };
+                }
+                return null;
+            }
+        }
+
+        MyActionFilter filter = new MyActionFilter();
     }
 }
